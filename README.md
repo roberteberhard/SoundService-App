@@ -1,6 +1,6 @@
-# Building a YouToube Playlist App with Vue.js and the WordPress REST API
+# Building a Video Playlist App on top of Vue.js and the WordPress REST API
 
-SoundServie simply lists my curated video playlists where you can watch or listen to the music video. The SPA is made with Vue.js on top of the WordPress REST API.
+SOUNDERVICE simply lists all my curated video playlists where you can watch or listen to the music videos. The SPA is made with Vue.js on top of the WordPress REST API.
 
 ## Routes & Endpoints reference link: 
 https://cms.soundservice.com/api/sose/v1/playlists</br>
