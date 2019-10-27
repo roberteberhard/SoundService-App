@@ -1,9 +1,9 @@
 <template>
-  <header class="navbar-header">
-    <nav v-if="showing" class="navbar-wrapper">
+  <header id="header">
+    <nav class="navbar">
       <div class="row">
-        <router-link :to="{ name: 'Dashboard' }" exact tag="h1" class="navbar-logo" active-class="active">SOUNDSERVICE</router-link>
-        <ul class="navbar-menu">
+        <router-link :to="{ name: 'Home' }" exact tag="h1" class="navbar__logo">SOUNDSERVICE</router-link>
+        <ul class="navbar__menu">
           <li>• • •</li>
         </ul>
         <!-- <ul class="menu">
@@ -16,23 +16,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  name: 'navbar',
-  computed: {
-    ...mapGetters('navbar', {
-      showing: 'viewState'
-    })
-  }
+  name: 'Header'
 }
 </script>
 
 <style scoped lang="scss">
-.navbar-header {
+#header {
   position: relative;
-  height: 0;
-  .navbar-wrapper {
+  width: 100%;
+  height: 0px;
+  .navbar {
     position: absolute;
     z-index: 100;
     top: 0;
@@ -41,43 +35,32 @@ export default {
     height: 58px;
     background-color: transparent;
     .row {
-      padding: 0 12px;
-      height: 58px;
-      h1.navbar-logo {
+      height: 0;
+      .navbar__logo {
         position: absolute;
         cursor: pointer;
-        width: 190px;
-        height: 24px;
-        top: 35px;
+        top: 24px;
         left: 12px;
-        background-repeat: no-repeat;
-        background-position: left center;
-        background-size: 185px 20px;
-        background-image: $home-logo;
-        background-color: transparent;
+        color: transparent;
         font-size: 0;
+        width: 48px;
+        height: 48px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 48px 48px;
+        background-color: transparent;
+        background-image: $sose-icon-logo;
       }
-      ul.navbar-menu {
+      .navbar__menu {
+        position: absolute;
+        top: 24px;
+        right: 12px;
         display: flex;
         justify-content: flex-end;
         align-items: center;
         list-style: none;
         li {
-          float: left;
-          height: 58px;
-          margin: 38px 0 0 40px;
-          color: white;
-          &.menu-link {
-            a {
-              color: #999;
-              text-decoration: none;
-            }
-            &.active {
-              a {
-                color: lightseagreen;
-              }
-            }
-          }
+          color: $white;
         }
       }
     }

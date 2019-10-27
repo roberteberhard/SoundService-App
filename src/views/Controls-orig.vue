@@ -1,72 +1,67 @@
 <template>
-  <div v-if="loading" class="remote-control">
-    <div class="controls">
-      <button v-if="!playMode" class="play" @click="onPlayClick">Play</button>
-      <button v-if="playMode" class="pause" @click="onPauseClick">Pause</button>
+  <section v-if="isPlayerActive" id="controls">
+    <div class="remote-control">
+      <button v-if="!isPlayerPlaying" class="play" @click="onPlayClick">Play</button>
+      <button v-if="isPlayerPlaying" class="pause" @click="onPauseClick">Pause</button>
       <button class="next" @click="onNextClick">Next</button>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 
-import { mapGetters } from 'vuex'
 export default {
-  name: 'RemoteControl',
-  data: function () {
+  name: 'Controls-old',
+  data () {
     return {
-      loading: true
     }
   },
   methods: {
+    ...mapActions(['applyPlayerPlayMode', 'applyPlayerPauseMode']),
     onPlayClick () {
-      this.$store.dispatch('player/updatePlayMode')
+      this.applyPlayerPlayMode()
     },
     onPauseClick () {
-      this.$store.dispatch('player/updatePauseMode')
+      this.applyPlayerPauseMode()
     },
     onNextClick () {
       this.$router.push({
-        name: 'VideoPage',
+        name: 'Sound',
         params: {
-          user: this.nextVideo.user,
-          playlist: this.nextVideo.playlist,
-          track: this.nextVideo.track
+          user: this.nextVideoList.user,
+          playlist: this.nextVideoList.playlist,
+          track: this.nextVideoList.track
         }
       })
     }
   },
-  computed: {
-    ...mapGetters({
-      playMode: 'player/getPlayMode',
-      nextVideo: 'videos/getNextVideoParams'
-    })
-  }
+  computed: mapGetters(['isPlayerActive', 'isPlayerPlaying', 'nextVideoList'])
 }
 </script>
 
 <style lang="scss" scoped>
-.remote-control {
+#controls {
   position: relative;
   height: 0;
-  .controls {
+  .remote-control {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     position: absolute;
-    z-index: 99;
-    bottom: 48px;
-    left: 20px;
+    z-index: 55;
+    top: calc(100vh - 68px);
+    left: 40px;
     font-size: 0;
     @media only screen and (min-width: $breakpoint-small) {
-      left: 0;
+      left: 40px;
     }
     @media only screen and (min-width: $breakpoint-mobile) {
-      left: 0;
+      left: 40px;
     }
     @media only screen and (min-width: $breakpoint-tablet) {
-      left: 0;
+      left: 40px;
     }
     @media only screen and (min-width: $breakpoint-notebook) {
       left: 56px;

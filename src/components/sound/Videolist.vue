@@ -1,23 +1,16 @@
 <template>
-  <section class="user-videos">
-
-    <NetworkSpinner
-      v-if="loading===waiting" />
-
-    <NetworkError
-      v-else-if="loading===error" />
-
-    <div
-      v-else-if="loading===success" class="videos-container" >
-
+  <section class="video-playlist">
+    <NetworkSpinner v-if="videoViewMode===waiting" />
+    <NetworkError v-else-if="videoViewMode===error" />
+    <div v-else-if="videoViewMode===success" class="video-covers" >
       <header class="videos-header">
         <div class="videos-header--icon i-videos"></div>
         <h3 class="videos-header--title">
-          Track {{ this.indexPosition( videos, videoTrack.track ) }} of {{ videos.length }}<span class="title--arrow"> • </span>{{ videoTrack.artist }}<span class="title--arrow"> • </span>{{ videoTrack.title }}
+          Track {{ this.indexPosition( allVideolist, activeVideolist.track ) }} of {{ allVideolist.length }}<span class="title--arrow"> • </span>{{ activeVideolist.artist }}<span class="title--arrow"> • </span>{{ activeVideolist.title }}
         </h3>
       </header>
 
-      <article v-for="track in videos" :key="track.id" class="video-track" :class="[ videoTrack.id===track.id ? 'active' : '', playMode ? 'is_playing' : '' ]">
+      <article v-for="track in allVideolist" :key="track.id" class="video-track" :class="[ activeVideolist.id===track.id ? 'active' : '', isPlayerPlaying ? 'is_playing' : '' ]">
         <a @click="onVideoTrackselected( { user: track.user, playlist: track.playlist, track: track.track } )" class="video-track-link">
           <div class="video-track-ctrl"></div>
           <div class="video-track-eqlizr">
@@ -39,11 +32,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
+
 import NetworkSpinner from '@/components/asset/NetworkSpinner.vue'
 import NetworkError from '@/components/asset/NetworkError.vue'
+
 export default {
-  name: 'UserVideos',
+  name: 'Videolist',
   data () {
     return {
       waiting: 'waiting',
@@ -55,10 +50,12 @@ export default {
     NetworkSpinner,
     NetworkError
   },
+  computed: mapGetters(['videoViewMode', 'allVideolist', 'activeVideolist', 'isPlayerPlaying']),
   methods: {
-    indexPosition (videos, track) {
-      for (let i = 0; i < videos.length; i++) {
-        if (videos[i].track === track) {
+    ...mapActions(['fetchVideolist', 'applyActiveTracklistParams', 'applyPlayerToggleMode']),
+    indexPosition (allVideolist, track) {
+      for (let i = 0; i < allVideolist.length; i++) {
+        if (allVideolist[i].track === track) {
           return i + 1
         }
       }
@@ -66,31 +63,24 @@ export default {
     },
     onVideoTrackselected: function (params) {
       if (this.$route.params.track !== params.track) {
-        this.$store.dispatch('videos/updateVideoTracks', params)
-        this.$router.push({ name: 'VideoPage', params: { user: params.user, playlist: params.playlist, track: params.track } })
+        this.applyActiveTracklistParams({ params: params })
+        this.$router.push({ name: 'Sound', params: { user: params.user, playlist: params.playlist, track: params.track } })
       } else {
-        this.$store.dispatch('player/updateToggleMode')
+        this.applyPlayerToggleMode()
       }
     }
   },
-  computed: {
-    ...mapGetters({
-      loading: 'videos/getLoadingState',
-      videos: 'videos/getVideoTracks',
-      videoTrack: 'videos/getSelectedVideoTrack',
-      playMode: 'player/getPlayMode'
-    })
-  },
   created () {
-    this.$store.dispatch('videos/fetchPlaylistVideoTracks', this.$route.params)
+    this.fetchVideolist(this.$route.params)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.user-videos {
-  background-color: $lightblack;
-  .videos-container {
+.video-playlist {
+  margin-top: 100vh;
+  background-color: $jetblack;
+  .video-covers {
     @include clearfix();
     padding: 25px 8px 30px 8px;
     @media only screen and (min-width: $breakpoint-small) {

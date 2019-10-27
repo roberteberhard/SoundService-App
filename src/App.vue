@@ -1,35 +1,39 @@
 <template>
-  <div class="app" :style="{ backgroundColor: selectedColor[0] }">
-    <nav-bar />
-    <video-player />
-    <remote-control />
-    <router-view />
-    <footer-view />
+  <div id="sose" class="app" :class="[controlView, viewportView]" :style="sliderBgColor">
+    <app-debug></app-debug>
+    <app-header></app-header>
+    <app-player></app-player>
+    <router-view></router-view>
+    <app-footer></app-footer>
+    <app-cookie theme="dark-lime--rounded">
+      <div slot="message">
+        This website uses cookies to ensure you get the best experience. <router-link to="legal">More info here</router-link>.
+      </div>
+    </app-cookie>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar.vue'
-import VideoPlayer from '@/components/VideoPlayer.vue'
-import RemoteControl from '@/components/RemoteControl.vue'
-import FooterView from '@/components/footer/FooterView.vue'
+import { mapActions, mapGetters } from 'vuex'
+
+import Debug from '@/views/Debug.vue'
+import Header from '@/views/Header.vue'
+import Player from '@/views/Player.vue'
+import Footer from '@/views/Footer.vue'
+import Cookie from 'vue-cookie-law'
 
 export default {
   components: {
-    navBar: Navbar,
-    videoPlayer: VideoPlayer,
-    remoteControl: RemoteControl,
-    footerView: FooterView
+    appDebug: Debug,
+    appHeader: Header,
+    appPlayer: Player,
+    appFooter: Footer,
+    appCookie: Cookie
   },
-  data: function () {
-    return {
-      red: '#996667',
-      selectedColor: [
-        '#3c3c3e',
-        '#85db27',
-        '#996667'
-      ]
-    }
+  computed: mapGetters(['controlView', 'viewportView', 'sliderBgColor']),
+  methods: mapActions(['applyDebugMode']),
+  created () {
+    this.applyDebugMode(true)
   }
 }
 </script>
@@ -54,12 +58,11 @@ body {
       color: $primary;
       text-decoration: none;
     }
-
     .app {
       display: block;
       overflow: hidden;
       // transition
-      transition: background-color 750ms ease 0ms;
+      transition: background-color 1000ms ease-in-out 0s;
     }
 }
 </style>

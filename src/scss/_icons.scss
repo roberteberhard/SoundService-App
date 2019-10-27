@@ -1,3 +1,31 @@
+.i-logo::before {
+    content:"";
+    display: inline-block;
+    position: relative;
+    top: 0px;
+    width: 48px;
+    height: 48px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 48px 48px;
+    background-color: transparent;
+    background-image: $sose-icon-logo; 
+}
+
+.i-sose::before {
+    content:"";
+    display: inline-block;
+    position: relative;
+    top: 0px;
+    width: 180px;
+    height: 22px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    background-color: transparent;
+    background-image: $home-logo-white; 
+}
+
 .i-tracks::before {
     content:"";
     display: inline-block;
@@ -26,7 +54,7 @@
     background-image: $sose-icon-bus;   
 }
 
-.i-playlists::before {
+.i-playlist::before {
     content:"";
     display: inline-block;
     position: relative;
@@ -61,10 +89,38 @@
     width: 28px;
     height: 28px;
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100%;
+    background-position: 0 0;
+    background-size: 56px 28px;
     background-color: transparent;
     background-image: $sose-icon-airplane; 
+}
+
+.i-instagram::before {
+    content:"";
+    display: inline-block;
+    position: relative;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 56px 28px;
+    background-color: transparent;
+    background-image: $sose-icon-instagram; 
+}
+
+.i-twitter::before {
+    content:"";
+    display: inline-block;
+    position: relative;
+    top: 0;
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: 56px 28px;
+    background-color: transparent;
+    background-image: $sose-icon-twitter; 
 }
 
 .title--arrow {

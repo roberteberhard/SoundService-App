@@ -1,54 +1,51 @@
+
 const state = {
-  controls: {
-    viewState: false,
-    playMode: false
+  player: {
+    isActive: false,
+    isPlaying: false
   }
 }
 
 const getters = {
-  viewState (state) {
-    return state.controls.viewState
+  isPlayerActive: (state) => {
+    return state.player.isActive
   },
-  getPlayMode (state) {
-    return state.controls.playMode
+  isPlayerPlaying: (state) => {
+    return state.player.isPlaying
+  }
+}
+
+const actions = {
+  applyPlayerActiveMode: ({ commit }, mode) => {
+    commit('setPlayerActiveMode', mode)
+  },
+  applyPlayerPlayMode: ({ commit }) => {
+    commit('setPlayerPlayMode')
+  },
+  applyPlayerPauseMode: ({ commit }) => {
+    commit('setPlayerPauseMode')
+  },
+  applyPlayerToggleMode: ({ commit }) => {
+    commit('setPlayerToggleMode')
   }
 }
 
 const mutations = {
-  setViewState (state, payload) {
-    state.controls.viewState = payload
+  setPlayerActiveMode (state, mode) {
+    state.player.isActive = mode
   },
-  setPlayMode (state) {
-    state.controls.playMode = true
+  setPlayerPlayMode: (state) => {
+    state.player.isPlaying = true
   },
-  setPauseMode (state) {
-    state.controls.playMode = false
+  setPlayerPauseMode: (state) => {
+    state.player.isPlaying = false
   },
-  togglePlayMode (state) {
-    state.controls.playMode = !state.controls.playMode
-  }
-}
-
-/**
- * Actions
- */
-const actions = {
-  manageViewState ({ commit }, payload) {
-    commit('setViewState', payload)
-  },
-  updatePlayMode ({ commit }) {
-    commit('setPlayMode')
-  },
-  updatePauseMode ({ commit }) {
-    commit('setPauseMode')
-  },
-  updateToggleMode ({ commit }) {
-    commit('togglePlayMode')
+  setPlayerToggleMode: (state) => {
+    state.player.isPlaying = !state.player.isPlaying
   }
 }
 
 export default {
-  namespaced: true,
   state,
   getters,
   mutations,

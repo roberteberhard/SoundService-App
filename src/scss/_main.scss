@@ -16,11 +16,11 @@ html, body, #app {
 }
 ::selection {
     color: white;
-    background: red;
+    background: lightgoldenrodyellow;
 }
 h1 {
     color: $white;
-    font-size: 28px;
+    font-size: 30px;
     font-family: $font-family-sans-serif;
     font-weight: 900;
     letter-spacing: 0.5px;
@@ -48,28 +48,65 @@ p {
       text-decoration: none;
     }
 }
+a.link,
+.link {
+    cursor: pointer;
+    color: $primary;
+    text-decoration: none; 
+    font-size: 16px;
+    font-family: $font-family-sans-serif;
+    font-weight: 700;
+    letter-spacing: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    // transition
+    transition: color .6s cubic-bezier(.19,1,.22,1);
+    &:hover {
+        color: $secondary; 
+    } 
+}
 .row {
     position: relative;
     margin: 0 calc(8px + 8px);
     width: calc(100% - 32px);
-    @media only screen and (min-width: $breakpoint-small) {
+    @media only screen and (min-width: $viewport-4) {
         margin: 0 calc(8px + 8px);
         width: calc(100% - 32px);
     }
-    @media only screen and (min-width: $breakpoint-mobile) {
-        margin: 0 calc(22px + 14px);
+    @media only screen and (min-width: $viewport-7) {
+        margin: 0 calc(22px + 12px);
         width: calc(100% - 68px);
     }
-    @media only screen and (min-width: $breakpoint-tablet) {
-        margin: 0 calc(22px + 14px);
-        width: calc(100% - 68px);  
+    @media only screen and (min-width: $viewport-9) {
+        margin: 0 calc(22px + 12px);
+        width: calc(100% - 68px);
     }
-    @media only screen and (min-width: $breakpoint-notebook) {
+    @media only screen and (min-width: $viewport-12) {
         margin: 0 calc(32px + 12px);
         width: calc(100% - 88px);
     }
-    @media only screen and (min-width: $breakpoint-desktop) {
+    @media only screen and (min-width: $viewport-15) {
         margin: 0 calc(62px + 12px);
         width: calc(100% - 148px);
+    }
+}
+
+
+/* Standard syntax */
+@keyframes uiFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(1.15);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
     }
 }
