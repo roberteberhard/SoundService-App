@@ -115,6 +115,10 @@ export default {
           text-align: right;
           margin-bottom: 70px;
         }
+        @media only screen and (min-width: $viewport-15) {
+          width: 33%;
+          text-align: right;
+        }
         ul {
           display: inline-block;
           list-style: none;

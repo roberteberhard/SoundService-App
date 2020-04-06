@@ -4,8 +4,8 @@
     <NetworkError v-else-if="soundViewMode===error" />
     <div v-else-if="soundViewMode===success" class="playlist-covers" >
       <header class="playlist-header">
-        <div class="playlist-header__icon i-playlist"></div>
-        <h3 class="playlist-header__title">
+        <div class="playlist-header--icon i-playlist"></div>
+        <h3 class="playlist-header--title">
           {{ activePlaylist.user }}<span class="title--arrow"> • </span>{{ activePlaylist.title }}<span class="title--arrow"> • </span>{{ activePlaylist.tracks }} Tracks
         </h3>
       </header>
@@ -68,23 +68,23 @@ export default {
       padding: 25px 34px 40px 34px;
     }
     @media only screen and (min-width: $viewport-9) {
-      padding: 30px 34px 40px 34px;
+      padding: 30px 34px 60px 34px;
     }
     @media only screen and (min-width: $viewport-12) {
-      padding: 35px 44px 60px 44px;
+      padding: 35px 44px 80px 44px;
     }
     @media only screen and (min-width: $viewport-15) {
-        padding: 40px 74px 80px 74px;
+        padding: 40px 74px 100px 74px;
     }
     .playlist-header {
       padding: 0 12px 24px 12px;
-      .playlist-header__icon {
+      .playlist-header--icon {
         text-align: center;
         &.i-playlist {
           opacity: 1;
         }
       }
-      .playlist-header__title {
+      .playlist-header--title {
         color: $white;
         font-family: $font-family-sans-serif;
         font-size: 14px;

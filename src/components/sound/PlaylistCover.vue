@@ -85,7 +85,7 @@ export default {
         background-repeat: no-repeat;
         background-position: 50% 50%;
         background-size: 42px 42px;
-        background-image: $sose-icon-play;
+        background-image: $sose-icon-play-white;
         @media only screen and (min-width: $viewport-4) {
           background-size: 58px 58px;
         }

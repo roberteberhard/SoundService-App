@@ -1,5 +1,10 @@
 <template>
   <div id="player" v-if="isPlayerActive" :class="playerStyle">
+    <div v-if="activeVideolist" class="remote-control">
+      <button v-if="!isPlayerPlaying" class="play" @click="onPlayClick">Play</button>
+      <button v-if="isPlayerPlaying" class="pause" @click="onPauseClick">Pause</button>
+      <button class="next" @click="onNextClick">Next</button>
+    </div>
     <div v-if="activeVideolist" class="partner-links">
       <ul>
         <li v-if="activeVideolist.amazon" class="brand amazon"><a :href="activeVideolist.amazon" target="_blank">Amazon</a></li>
@@ -110,6 +115,22 @@ export default {
     },
     onPlayerEnd () {
       this.$router.push({ name: 'Sound', params: { user: this.nextVideoTrack.user, playlist: this.nextVideoTrack.playlist, track: this.nextVideoTrack.track } })
+    },
+    onPlayClick () {
+      this.applyPlayerPlayMode()
+    },
+    onPauseClick () {
+      this.applyPlayerPauseMode()
+    },
+    onNextClick () {
+      this.$router.push({
+        name: 'Sound',
+        params: {
+          user: this.nextVideoList.user,
+          playlist: this.nextVideoList.playlist,
+          track: this.nextVideoList.track
+        }
+      })
     },
     handleScroll () {
       // let windowHeight = window.innerHeight
@@ -250,6 +271,32 @@ export default {
       top: 685px;
       right: 86px;
     }
+    // Remote Control
+    .remote-control {
+      top: 126px;
+      left: 20px;
+      @media only screen and (min-width: $viewport-4) {
+        top: 182px;
+        left: 20px;
+      }
+      @media only screen and (min-width: $viewport-15) {
+        top: 216px;
+        left: 20px;
+      }
+    }
+    // Partner Links
+    .partner-links  {
+      top: 130px;
+      right: 22px;
+      @media only screen and (min-width: $viewport-4) {
+        top: 186px;
+        right: 20px;
+      }
+      @media only screen and (min-width: $viewport-15) {
+        top: 220px;
+        right: 20px;
+      }
+    }
   }
   /** Player Legal States */
   &.player-legal {
@@ -277,13 +324,107 @@ export default {
       width: 480px;
       height: 270px;
     }
+    // Partner Links
+    .partner-links  {
+      top: 130px;
+      right: 22px;
+      @media only screen and (min-width: $viewport-4) {
+        top: 186px;
+        right: 20px;
+      }
+      @media only screen and (min-width: $viewport-15) {
+        top: 220px;
+        right: 20px;
+      }
+    }
   }
+  /**
+   * Remote Control
+   */
+  .remote-control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 55;
+    top: calc(100vh - 97px);
+    left: 40px;
+    font-size: 0;
+    @media only screen and (min-width: $breakpoint-small) {
+      left: 40px;
+    }
+    @media only screen and (min-width: $breakpoint-mobile) {
+      left: 40px;
+    }
+    @media only screen and (min-width: $breakpoint-tablet) {
+      left: 40px;
+    }
+    @media only screen and (min-width: $breakpoint-notebook) {
+      left: 56px;
+    }
+    @media only screen and (min-width: $breakpoint-desktop) {
+      left: 86px;
+    }
+    .play {
+      cursor: pointer;
+      display: block;
+      width: 54px;
+      height: 36px;
+      outline: none !important;
+      font-size: 0;
+      border-radius: 18px;
+      border: 0;
+      background-position: 22px 12px;
+      background-repeat: no-repeat;
+      background-size: 12px 12px;
+      background-color: white(0.35);
+      background-image: $player-icon-play;
+    }
+    .pause {
+      cursor: pointer;
+      display: block;
+      width: 54px;
+      height: 36px;
+      outline: none !important;
+      font-size: 0;
+      border-radius: 18px;
+      border: 0;
+      background-position: 22px 12px;
+      background-repeat: no-repeat;
+      background-size: 12px 12px;
+      background-color: white(0.35);
+      background-image: $player-icon-pause;
+    }
+    .next {
+      cursor: pointer;
+      display: block;
+      width: 54px;
+      height: 36px;
+      margin-left: 8px;
+      outline: none !important;
+      font-size: 0;
+      border-radius: 18px;
+      border: 0;
+      background-position: 18px 12px;
+      background-repeat: no-repeat;
+      background-size: 24px 12px;
+      background-color: white(0.35);
+      background-image: $player-icon-next;
+    }
+  }
+
+  /**
+   * Partner Links
+   */
   .partner-links {
+    display: none;
     right: 0;
-    bottom: 52px;
+    top: calc(100vh - 92px);
     position: absolute;
     z-index: 1;
     @media only screen and (min-width: $viewport-4) {
+      display: block;
       right: 0;
     }
     @media only screen and (min-width: $viewport-7) {

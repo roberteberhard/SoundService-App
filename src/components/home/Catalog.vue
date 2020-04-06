@@ -115,7 +115,7 @@ export default {
         background-repeat: no-repeat;
         background-position: 0 0;
         background-size: 100% 100%;
-        background-image: $sose-icon-play;
+        background-image: $sose-icon-play-white;
         appearance: none;
         &.ready {
           // animation
